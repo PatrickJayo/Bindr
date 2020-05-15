@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "config/connect.php";
+include "config/connection.php";
 // make user offline before logout
 $myid = $_SESSION['id'];
 $online_status = "0";

@@ -1,10 +1,10 @@
 <?php
 session_start();
-include("../config/connect.php");
+include("../config/connection.php");
 $s_id = $_SESSION['id'];
 $user_id = filter_var(htmlentities($_POST['id']), FILTER_SANITIZE_NUMBER_INT);
 $fid = 0;
-$checkfollow_sql = "SELECT * FROM follow WHERE uf_one=:s_id AND uf_two=:user_id";
+$checkfollow_sql = "SELECT * FROM uFollow WHERE uf_one=:s_id AND uf_two=:user_id";
     $checkfollow = $conn->prepare($checkfollow_sql);
     $checkfollow->bindParam(':s_id',$s_id,PDO::PARAM_INT);
     $checkfollow->bindParam(':user_id',$user_id,PDO::PARAM_INT);
@@ -12,7 +12,7 @@ $checkfollow_sql = "SELECT * FROM follow WHERE uf_one=:s_id AND uf_two=:user_id"
     $fchecknum = $checkfollow->rowCount();
 if ($fchecknum > 0) {
     // unfollow user 
-    $unfollow_sql = "DELETE FROM follow WHERE uf_one=:s_id AND uf_two=:user_id";
+    $unfollow_sql = "DELETE FROM uFollow WHERE uf_one=:s_id AND uf_two=:user_id";
     $unfollow = $conn->prepare($unfollow_sql);
     $unfollow->bindParam(':s_id',$s_id,PDO::PARAM_INT);
     $unfollow->bindParam(':user_id',$user_id,PDO::PARAM_INT);
@@ -20,7 +20,7 @@ if ($fchecknum > 0) {
     $followbtn = "<button class=\"follow_btn\" onclick=\"followUnfollow('$user_id')\"><span class=\"fa fa-plus-circle\"></span> ".lang('followBtn_str')."</button>";
 
     // update following number
-    $followers_sql = "SELECT id FROM follow WHERE uf_two=:user_id";
+    $followers_sql = "SELECT id FROM uFollow WHERE uf_two=:user_id";
     $followers = $conn->prepare($followers_sql);
     $followers->bindParam(':user_id',$user_id,PDO::PARAM_INT);
     $followers->execute();
@@ -43,7 +43,7 @@ if ($fchecknum > 0) {
     // ==================================
 }else{
     // follow user 
-    $follow_sql = "INSERT INTO follow VALUES (:fid,:s_id,:user_id)";
+    $follow_sql = "INSERT INTO uFollow VALUES (:fid,:s_id,:user_id)";
     $follow = $conn->prepare($follow_sql);
     $follow->bindParam(':fid',$fid,PDO::PARAM_INT);
     $follow->bindParam(':s_id',$s_id,PDO::PARAM_INT);
@@ -52,7 +52,7 @@ if ($fchecknum > 0) {
     $followbtn = "<button class=\"unfollow_btn\" onclick=\"followUnfollow('$user_id')\"><span class=\"fa fa-check\"></span> ".lang('followingBtn_str')."</button>";
 
     // update followers number
-    $followers_sql = "SELECT id FROM follow WHERE uf_two=:user_id";
+    $followers_sql = "SELECT id FROM uFollow WHERE uf_two=:user_id";
     $followers = $conn->prepare($followers_sql);
     $followers->bindParam(':user_id',$user_id,PDO::PARAM_INT);
     $followers->execute();

@@ -1,5 +1,5 @@
 <?php
-include("../config/connect.php");
+include("../config/connection.php");
 session_start();
 $uid = htmlentities($_POST['uid'], ENT_QUOTES);
 $pid = htmlentities($_POST['pid'], ENT_QUOTES);

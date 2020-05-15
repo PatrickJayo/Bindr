@@ -1,10 +1,10 @@
 <?php
 error_reporting(E_ALL ^ E_NOTICE);
 session_start();
-include("config/connect.php");
-include("includes/fetch_users_info.php");
-include ("includes/time_function.php");
-include("includes/country_name_function.php");
+include("config/connection.php");
+include("includes/fetchUserInfo.php");
+include("includes/currentTime.php");
+include("includes/countryNameFunction.php");
 if(!isset($_SESSION['Username'])){
     header("location: login.php");
 }
@@ -180,15 +180,15 @@ if (!password_verify($remeveA_current_pass_var,$_SESSION['Password'])) {
      $remeveAccount = $conn->prepare($remeveAccount_sql);
      $remeveAccount->bindParam(':session_un',$session_un,PDO::PARAM_STR);
      $remeveAccount->execute();
-     $remeveAccount_sql = "DELETE FROM comments WHERE c_author_id= :myid";
+     $remeveAccount_sql = "DELETE FROM uComments WHERE commentAuthor_id= :myid";
      $remeveAccount = $conn->prepare($remeveAccount_sql);
      $remeveAccount->bindParam(':myid',$myid,PDO::PARAM_STR);
      $remeveAccount->execute();
-     $remeveAccount_sql = "DELETE FROM follow WHERE uf_one= :myid";
+     $remeveAccount_sql = "DELETE FROM uFollow WHERE uf_one= :myid";
      $remeveAccount = $conn->prepare($remeveAccount_sql);
      $remeveAccount->bindParam(':myid',$myid,PDO::PARAM_STR);
      $remeveAccount->execute();
-     $remeveAccount_sql = "DELETE FROM follow WHERE uf_two= :myid";
+     $remeveAccount_sql = "DELETE FROM uFollow WHERE uf_two= :myid";
      $remeveAccount = $conn->prepare($remeveAccount_sql);
      $remeveAccount->bindParam(':myid',$myid,PDO::PARAM_STR);
      $remeveAccount->execute();
@@ -233,11 +233,11 @@ if (!password_verify($remeveA_current_pass_var,$_SESSION['Password'])) {
     <title>Account settings | Bindr</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <?php include "includes/head_imports_main.php";?>
+     <?php include "includes/importHeadMain.php";?>
 </head>
 <body" style="overflow-y: scroll">
 <!--=============================[ NavBar ]========================================-->
-<?php include "includes/navbar_main.php"; ?>
+<?php include "includes/mainNav.php"; ?>
 <!--=============================[ Div_Container ]========================================-->
 <div class="main_container">
     <center>

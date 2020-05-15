@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("../config/connect.php");
+include("../config/connection.php");
 $s_id = $_SESSION['id'];
 $plike = filter_var(htmlentities($_POST['pl']),FILTER_SANITIZE_NUMBER_INT);
 $lid = "";

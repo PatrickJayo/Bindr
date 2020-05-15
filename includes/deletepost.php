@@ -1,5 +1,5 @@
 <?php
-include("../config/connect.php");
+include("../config/connection.php");
 session_start();
 $sid = $_SESSION['id'];
 $posts_id = filter_var(htmlspecialchars($_POST['pid']),FILTER_SANITIZE_NUMBER_INT);

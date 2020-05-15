@@ -1,9 +1,9 @@
 <?php
 error_reporting(E_ALL ^ E_NOTICE);
 session_start();
-include("config/connect.php");
-include("includes/fetch_users_info.php");
-include ("includes/time_function.php");
+include("config/connection.php");
+include("includes/fetchUserInfo.php");
+include("includes/currentTime.php");
 if(!isset($_SESSION['Username'])){
     header("location: index");
 }
@@ -11,11 +11,11 @@ if(!isset($_SESSION['Username'])){
 <html dir="<?php echo lang('html_dir'); ?>">
 <head>
     <title>GOMELIA | HOMEPAGE</title>
-    <?php include "includes/head_imports_main.php";?>
+    <?php include "includes/importHeadMain.php";?>
 </head>
 <body onload="hide_notify()">
 <!--=============================[ NavBar ]========================================-->
-<?php include "includes/navbar_main.php"; ?>
+<?php include "includes/mainNav.php"; ?>
 <!--=============================[ Div_Container ]========================================-->
 <div class="main_container" align="center">
     <div style="display: inline-flex" align="center">
@@ -53,7 +53,7 @@ $country = $row['country'];
 $work = $row['work'];
 $work0 = $row['work0'];
 
-$csql = "SELECT id FROM follow WHERE uf_one=:s_id AND uf_two=:id";
+$csql = "SELECT id FROM uFollow WHERE uf_one=:s_id AND uf_two=:id";
 $c = $conn->prepare($csql);
 $c->bindParam(':s_id',$s_id,PDO::PARAM_INT);
 $c->bindParam(':id',$id,PDO::PARAM_INT);
@@ -106,7 +106,7 @@ $fullname_4User = $fetch_users['Fullname'];
 $username_4User = $fetch_users['Username'];
 $userphoto_4User = $fetch_users['Userphoto'];
 $verify_4User = $fetch_users['verify'];
-$csql = "SELECT id FROM follow WHERE uf_one=:s_id AND uf_two=:id_4User";
+$csql = "SELECT id FROM uFollow WHERE uf_one=:s_id AND uf_two=:id_4User";
 $c = $conn->prepare($csql);
 $c->bindParam(':s_id',$s_id,PDO::PARAM_INT);
 $c->bindParam(':id_4User',$id_4User,PDO::PARAM_INT);

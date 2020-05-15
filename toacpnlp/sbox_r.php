@@ -1,9 +1,9 @@
 <?php
 error_reporting(E_ALL ^ E_NOTICE);
 session_start();
-include("../config/connect.php");
-include ("../includes/num_k_m_count.php");
-include ("../includes/time_function.php");
+include("../config/connection.php");
+include("../includes/countNum.php");
+include("../includes/currentTime.php");
 
 // if user not logged in go index page or login
 if(!isset($_SESSION['Username'])){
@@ -61,10 +61,10 @@ if (isset($_POST['submitR'])) {
     <title><? echo lang('dashboard'); ?> | Bindr</title>
     <admin charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php include "../includes/head_imports_main.php";?>
+    <?php include "../includes/importHeadMain.php";?>
 </head>
 <body>
-<?php include "../includes/navbar_main.php"; ?>
+<?php include "../includes/mainNav.php"; ?>
 <div align="center" style="margin-top: 54px; padding: 3%;">
 <div class="dashboard_box" style="text-align: <? echo lang('textAlign'); ?>">
     <div class="dashboard_boxD1">

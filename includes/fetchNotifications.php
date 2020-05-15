@@ -1,7 +1,7 @@
 <?php
 session_start();
-include("../config/connect.php");
-include ("time_function.php");
+include("../config/connection.php");
+include("currentTime.php");
 $what = htmlentities(htmlspecialchars($_POST['what']));
 $path = htmlentities(htmlspecialchars($_POST['path']));
 $load = htmlentities(htmlspecialchars($_POST['load']));

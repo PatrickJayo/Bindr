@@ -1,7 +1,7 @@
 <?php
 session_start();
-include("../config/connect.php");
-include("../includes/fetch_users_info.php");
+include("../config/connection.php");
+include("../includes/fetchUserInfo.php");
 $uid = $_SESSION['id'];
 $getSaved_sql = "SELECT * FROM saved WHERE user_saved_id= :uid ORDER BY saved_time DESC";
 $getSaved=$conn->prepare($getSaved_sql);

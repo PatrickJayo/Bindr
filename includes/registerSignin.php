@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("../config/connect.php");
+include("../config/connection.php");
 $req = filter_var(htmlentities($_POST['req']),FILTER_SANITIZE_STRING);
 switch ($req) {
 // ============================= [ Login code ] =============================
@@ -74,7 +74,7 @@ echo "<p class='alertRed'>".lang('enter_username_to_login')."</p>";
         echo "<p class='alertRed'>".lang('un_and_pwd_incorrect')."!</p>";
     }else{
         $_SESSION['attempts'] = 0;
-        include ("GeT_login_WhileFetch.php");
+        include("GetLogin.php");
         echo "Welcome...";
     }       
     }
@@ -190,7 +190,7 @@ if($signup_fullname == null || $signup_username == null || $signup_email == null
     $query->bindParam(':signup_password', $signup_password, PDO::PARAM_STR);
     $query->execute();
     $num = $query->rowCount();
-    include ("GeT_login_WhileFetch.php");
+    include("GetLogin.php");
     echo "Done..";
 }
 $conn = null;

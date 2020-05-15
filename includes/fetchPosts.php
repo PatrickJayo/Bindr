@@ -41,7 +41,7 @@ while ($query_fetch = $query->fetch(PDO::FETCH_ASSOC)) {
     $query_fetch_verify = $query_fetch['verify'];
 }
 
-$chslq = "SELECT c_id FROM comments WHERE c_post_id=:get_post_id";
+$chslq = "SELECT comment_id FROM uComments WHERE commentPost_id=:get_post_id";
 $ch = $conn->prepare($chslq);
 $ch->bindParam(':get_post_id', $get_post_id, PDO::PARAM_INT);
 $ch->execute();
@@ -68,11 +68,11 @@ if($chShareCount == 0){
 
 $imgs_path = $check_path."imgs/";
 $em_img_path = $imgs_path."emoticons/";
-if (is_file("config/connect.php")) {
+if (is_file("config/connection.php")) {
     $includePath = "includes/";
-}elseif (is_file("../config/connect.php")) {
+}elseif (is_file("../config/connection.php")) {
     $includePath = "../includes/";
-}elseif (is_file("config/connect.php")) {
+}elseif (is_file("config/connection.php")) {
     $includePath = "../../includes/";
 }
 
@@ -152,7 +152,7 @@ $body = nl2br("$body");
     <div id='postLoading_$get_post_id'></div>
     "; 
         echo "<p dir=\"auto\" id='postContent_$get_post_id'>";
-    include ("ytframe.php");
+    include("vidFrame.php");
     echo "</p>";
     echo""; 
         if (!empty($get_post_img)) {
@@ -262,7 +262,7 @@ echo "<a href='javascript:void(0);' onclick=\"sharePost('$get_post_id','$check_p
 </div>
 <div class=\"comment_box\">
 <div class='user_comment' id='postComments_$get_post_id'>";
-    include "fetch_comments.php";
+    include "fetchComments.php";
 echo"
 </div>
 <div id='writeComm_$get_post_id'>

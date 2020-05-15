@@ -1,9 +1,9 @@
 <?php
 session_start();
-include("../config/connect.php");
-include("fetch_users_info.php");
-include ("time_function.php");
-include ("num_k_m_count.php");
+include("../config/connection.php");
+include("fetchUserInfo.php");
+include("currentTime.php");
+include("countNum.php");
 $check_path = filter_var(htmlspecialchars($_POST['path']),FILTER_SANITIZE_STRING);
 $plimit = filter_var(htmlspecialchars($_POST['plimit']),FILTER_SANITIZE_NUMBER_INT);
 $row_id = filter_var(htmlspecialchars($_POST['rid']),FILTER_SANITIZE_NUMBER_INT);
@@ -11,7 +11,7 @@ $pr_onlyme = "2";
 $pr_followers = "1";
 $s_id = $_SESSION['id'];
 $user_id = $row_id;
-$checkIfollowedHim_sql = "SELECT * FROM follow WHERE uf_one=:s_id AND uf_two=:user_id";
+$checkIfollowedHim_sql = "SELECT * FROM uFollow WHERE uf_one=:s_id AND uf_two=:user_id";
 $checkIfollowedHim = $conn->prepare($checkIfollowedHim_sql);
 $checkIfollowedHim->bindParam(':s_id',$s_id,PDO::PARAM_INT);
 $checkIfollowedHim->bindParam(':user_id',$user_id,PDO::PARAM_INT);
@@ -43,7 +43,7 @@ $view_posts->execute();
 }
 $view_postsNum = $view_posts->rowCount();
 if ($view_postsNum > 0) {
-	include "fetch_posts.php";
+	include "fetchPosts.php";
 }else{
 	echo "0";
 }

@@ -1,9 +1,9 @@
 <?php
 error_reporting(E_ALL ^ E_NOTICE);
 session_start();
-include("../config/connect.php");
-include("../includes/fetch_users_info.php");
-include ("../includes/time_function.php");
+include("../config/connection.php");
+include("../includes/fetchUserInfo.php");
+include("../includes/currentTime.php");
 if(!isset($_SESSION['Username'])){
     header("location: ../index");
 }
@@ -15,11 +15,11 @@ $msgId = trim(filter_var(htmlentities($_GET['id'])),FILTER_SANITIZE_NUMBER_INT);
     <title><? echo lang('messages'); ?> | Bindr</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php include "../includes/head_imports_main.php";?>
+    <?php include "../includes/importHeadMain.php";?>
 </head>
 <body>
 <!--=============================[ NavBar ]========================================-->
-<?php include "../includes/navbar_main.php"; ?>
+<?php include "../includes/mainNav.php"; ?>
 <!--=============================[ Div_Container ]========================================-->
 <div class="messages_container" style="text-align: center;">
     <div style="text-align: <? echo lang('textAlign'); ?>">

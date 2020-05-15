@@ -2,8 +2,8 @@
 // start session
 session_start();
 // include irequired files
-include("../config/connect.php");
-include ("time_function.php");
+include("../config/connection.php");
+include("currentTime.php");
 // main varaibles
 $myid = $_SESSION['id'];
 $req = filter_var(htmlentities($_POST['req']),FILTER_SANITIZE_STRING);
@@ -13,7 +13,7 @@ switch ($req) {
 // =================== if ajax requested [getUsers] do this code ===================
 case 'getUsers':
 // select users that I follow
-$users = $conn->prepare("SELECT uf_two FROM follow WHERE uf_one=:myid");
+$users = $conn->prepare("SELECT uf_two FROM uFollow WHERE uf_one=:myid");
 $users->bindParam(':myid',$myid,PDO::PARAM_INT);
 $users->execute();
 $usersCount = $users->rowCount();
@@ -159,7 +159,7 @@ if ($seenCountNum > 0) {
 	$mCountUnseen = "";
 }
 // check if user who requested a message is one of my friends or not
-$uReqCheck = $conn->prepare("SELECT uf_two FROM follow WHERE uf_one=:myid AND uf_two = :m_from");
+$uReqCheck = $conn->prepare("SELECT uf_two FROM uFollow WHERE uf_one=:myid AND uf_two = :m_from");
 $uReqCheck->bindParam(':myid',$myid,PDO::PARAM_INT);
 $uReqCheck->bindParam(':m_from',$m_from,PDO::PARAM_INT);
 $uReqCheck->execute();
@@ -192,7 +192,7 @@ break;
 case 'searchUser':
 // search in users that I follow
 $mSearch = filter_var(htmlentities($_POST['mSearch']),FILTER_SANITIZE_STRING);
-$uSearch = $conn->prepare("SELECT id,online,Fullname,Userphoto,Username,verify FROM signup WHERE id IN (SELECT uf_two FROM follow WHERE uf_one= ?) AND (Fullname LIKE ? OR Username LIKE ?)");
+$uSearch = $conn->prepare("SELECT id,online,Fullname,Userphoto,Username,verify FROM signup WHERE id IN (SELECT uf_two FROM uFollow WHERE uf_one= ?) AND (Fullname LIKE ? OR Username LIKE ?)");
 $params = array("$myid","$mSearch%","$mSearch%");
 $uSearch->execute($params);
 $uSearchCount = $uSearch->rowCount();

@@ -2,10 +2,10 @@
 error_reporting(E_ALL ^ E_NOTICE);
 session_start();
 $page="post";
-include("../config/connect.php");
-include("../includes/fetch_users_info.php");
-include ("../includes/time_function.php");
-include ("../includes/num_k_m_count.php");
+include("../config/connection.php");
+include("../includes/fetchUserInfo.php");
+include("../includes/currentTime.php");
+include("../includes/countNum.php");
 if(!isset($_SESSION['Username'])){
     header("location: ../index");
 }
@@ -22,11 +22,11 @@ if (is_dir("imgs/")) {
     <title>Post | Bindr</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php include "../includes/head_imports_main.php";?>
+    <?php include "../includes/importHeadMain.php";?>
 </head>
 <body onload="fetchPosts_DB('home')">
 <!--=============================[ NavBar ]========================================-->
-<?php include "../includes/navbar_main.php"; ?>
+<?php include "../includes/mainNav.php"; ?>
 
 <div class="main_container" align="center">
     <div style="display: inline-flex" align="center">
@@ -47,7 +47,7 @@ if (is_dir("imgs/")) {
                 $fPosts_sql = "SELECT * FROM wpost WHERE post_id = ?";
                 $params = array($post_id);
             }else{
-                $checkFromPost_sql = "SELECT author_id FROM wpost WHERE post_id = ? AND author_id IN (SELECT uf_two FROM follow WHERE uf_one= ?)";
+                $checkFromPost_sql = "SELECT author_id FROM wpost WHERE post_id = ? AND author_id IN (SELECT uf_two FROM uFollow WHERE uf_one= ?)";
                 $checkFromPost_params = array($post_id, $sid);
                 $checkFromPost = $conn->prepare($checkFromPost_sql);
                 $checkFromPost->execute($checkFromPost_params);
@@ -63,7 +63,7 @@ if (is_dir("imgs/")) {
         
         $view_posts = $conn->prepare($fPosts_sql);
         $view_posts->execute($params);
-        include "../includes/fetch_posts.php";
+        include "../includes/fetchPosts.php";
         }else{
         ?>
         <style type="text/css">
@@ -94,7 +94,7 @@ if (is_dir("imgs/")) {
         </style>
         <div align="center" style="margin-top: 150px;margin-bottom: 150px;">
         <div class="post error_div" align="center">
-        <h1 style="font-weight: bold;"><img src="../imgs/main_icons/1f915.png" style="width: 80px;height: 80px;" /> <?php echo lang('profilePageNotFound_str1'); ?></h1>
+        <h1 style="font-weight: bold;"><img src="../allImages/main_icons/1f915.png" style="width: 80px;height: 80px;" /> <?php echo lang('profilePageNotFound_str1'); ?></h1>
         <h3><?php echo lang('profilePageNotFound_str2'); ?></h3><br>
         <a href="javascript:history.back()" class="error_page_btn"><?php echo lang('profilePageNotFound_str3'); ?></a>
         </div></div>

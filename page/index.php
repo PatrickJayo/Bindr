@@ -3,11 +3,11 @@ error_reporting(E_ALL ^ E_NOTICE);
 session_start();
 $myId = $_SESSION['id'];
 $myPhoto = $_SESSION['Userphoto'];
-include("../config/connect.php");
-include("../includes/fetch_users_info.php");
-include("../includes/time_function.php");
-include("../includes/country_name_function.php");
-include("../includes/num_k_m_count.php");
+include("../config/connection.php");
+include("../includes/fetchUserInfo.php");
+include("../includes/currentTime.php");
+include("../includes/countryNameFunction.php");
+include("../includes/countNum.php");
 if(!isset($_SESSION['Username'])){
     header("location: ../index");
 }
@@ -30,12 +30,12 @@ break;
     <title><?php echo $pagename; ?> | Bindr</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php include "../includes/head_imports_main.php";?>
+    <?php include "../includes/importHeadMain.php";?>
     </script>
 </head>
 <body onload="fetchPosts_DB('user')">
 <!--=============================[ NavBar ]========================================-->
-<?php include "../includes/navbar_main.php"; ?>
+<?php include "../includes/mainNav.php"; ?>
 <!--=============================[ NavBar ]========================================-->
 <?php
 switch ($page) {

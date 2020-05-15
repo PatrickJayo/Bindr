@@ -1,10 +1,10 @@
 <?php
 error_reporting(E_ALL ^ E_NOTICE);
 session_start();
-include("../config/connect.php");
-include("../includes/fetch_users_info.php");
-include ("../includes/time_function.php");
-include ("../includes/num_k_m_count.php");
+include("../config/connection.php");
+include("../includes/fetchUserInfo.php");
+include("../includes/currentTime.php");
+include("../includes/countNum.php");
 if(!isset($_SESSION['Username'])){
     header("location: ../index");
 }
@@ -21,11 +21,11 @@ if (is_dir("imgs/")) {
     <title>Saved posts | Bindr</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php include "../includes/head_imports_main.php";?>
+    <?php include "../includes/importHeadMain.php";?>
 </head>
 <body>
 <!--=============================[ NavBar ]========================================-->
-<?php include "../includes/navbar_main.php"; ?>
+<?php include "../includes/mainNav.php"; ?>
 <div class="main_container" align="center">
     <div style="display: inline-flex" align="center">
         <div align="left">
@@ -34,7 +34,7 @@ if (is_dir("imgs/")) {
                 <td><?php echo lang('all_posts_that_you_saved'); ?></td>
                 <td align="center"><span class="fa fa-cog"></span></td>
             </tr>
-            <?php include "../includes/fetch_posts_saved.php"; ?>
+            <?php include "../includes/fetchSavePost.php"; ?>
         </table>
         <?php
         if ($countSaved < 1) {

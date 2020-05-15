@@ -1,10 +1,10 @@
 <?php
 error_reporting(E_ALL ^ E_NOTICE);
 session_start();
-include("config/connect.php");
-include("includes/fetch_users_info.php");
-include ("includes/time_function.php");
-include ("includes/num_k_m_count.php");
+include("config/connection.php");
+include("includes/fetchUserInfo.php");
+include("includes/currentTime.php");
+include("includes/countNum.php");
 if(!isset($_SESSION['Username'])){
     header("location: index");
 }
@@ -21,11 +21,11 @@ if (is_dir("imgs/")) {
     <title>Home | Bindr</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php include "includes/head_imports_main.php"; ?>
+    <?php include "includes/importHeadMain.php"; ?>
 </head>
 <body onload="fetchPosts_DB('home');">
 <!--=============================[ NavBar ]========================================-->
-<?php include "includes/navbar_main.php"; ?>
+<?php include "includes/mainNav.php"; ?>
 <!--=============================[ Div_Container ]========================================-->
 <div class="main_container" align="center">
 <!--====================================[ Center col's ]============================================-->
@@ -50,7 +50,7 @@ if (is_dir("imgs/")) {
 <a href="./settings"><p class="<?php echo lang('HLP_b'); ?>"><img src="imgs/main_icons/2699.png" /> <?php echo lang('settings'); ?></p></a>
 
 <p class="homeLinks_title"><?php echo lang('my_notepad'); ?></p>
-<a href="./mynotepad/new"><p class="<?php echo lang('HLP_b'); ?>"><img src="imgs/main_icons/270f.png" /> <?php echo lang('new_note'); ?></p></a>
+<a href="./mynotepad/new"><p class="<?php echo lang('HLP_b'); ?>"><img src="allImages/main_icons/270f.png" /> <?php echo lang('new_note'); ?></p></a>
 <?php
 $msid = $_SESSION['id'];
 $get_notes_sql="SELECT id,note_title FROM mynotepad WHERE author_id=:msid ORDER BY note_time DESC LIMIT 3";
@@ -93,7 +93,7 @@ while ($getS_row = $getS->fetch(PDO::FETCH_ASSOC)) {
 <p class="homeLinks_title"><?php echo lang('more'); ?></p>
 <a href="./posts/saved"><p class="<?php echo lang('HLP_b'); ?>"><img src="imgs/main_icons/1f516.png" /> <?php echo lang('saved_posts'); ?></p></a>
 <a href="page/supportbox"><p class="<?php echo lang('HLP_b'); ?>"><img src="imgs/main_icons/1f4e5.png" /> <?php echo lang('supportBox'); ?></p></a>
-<a href="page/report"><p class="<?php echo lang('HLP_b'); ?>"><img src="imgs/main_icons/1f4e4.png" /> <?php echo lang('Report_A_Problem'); ?></p></a>
+<a href="page/report"><p class="<?php echo lang('HLP_b'); ?>"><img src="allImages/main_icons/1f4e4.png" /> <?php echo lang('Report_A_Problem'); ?></p></a>
     </div>
         </div>
     </div>
@@ -167,7 +167,7 @@ while ($getS_row = $getS->fetch(PDO::FETCH_ASSOC)) {
                     <div class="aSetup_item">
                         <?php
                         $uid = $_SESSION['id'];
-                        $sqlQ = "SELECT * FROM follow WHERE uf_one = :uid";
+                        $sqlQ = "SELECT * FROM uFollow WHERE uf_one = :uid";
                         $sqlQ_check = $conn->prepare($sqlQ);
                         $sqlQ_check->bindParam(':uid',$uid,PDO::PARAM_INT);
                         $sqlQ_check->execute();
@@ -229,7 +229,7 @@ while ($getS_row = $getS->fetch(PDO::FETCH_ASSOC)) {
             <!--==========[ End Account Setup ]=========-->
                 <div class="write_post">
                 <?php echo $err_success_Msg; ?>
-                    <?php include("includes/w_post_form.php"); ?>
+                    <?php include("includes/postForm.php"); ?>
                 </div>
                    <div id="FetchingPostsDiv">
                 </div>

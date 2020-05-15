@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("../config/connect.php");
+include("../config/connection.php");
 $pid = filter_var(htmlspecialchars($_POST['pid']),FILTER_SANITIZE_NUMBER_INT);
 $myid = filter_var(htmlspecialchars($_POST['myid']),FILTER_SANITIZE_NUMBER_INT);
 $st = time();

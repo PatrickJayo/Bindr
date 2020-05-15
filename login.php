@@ -24,7 +24,7 @@ include_once $path."langs/set_lang.php";
     <title><? echo lang('login'); ?> | Bindr</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php include "includes/head_imports_main.php";?>
+    <?php include "includes/importHeadMain.php";?>
 </head>
     <body class="login_signup_body">
     <!--============[ Nav bar ]============-->

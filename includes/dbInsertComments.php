@@ -1,8 +1,8 @@
 <?php
 session_start();
-include("../config/connect.php");
-include ("time_function.php");
-include ("num_k_m_count.php");
+include("../config/connection.php");
+include("currentTime.php");
+include("countNum.php");
 session_start();
 $s_id=$_SESSION['id'];
 $c_id = rand(0,9999999)+time();
@@ -13,8 +13,8 @@ $comment_time = time();
 
 if (trim($comment_content) == NULL){
 }else{
-$ictodbsql = "INSERT INTO comments
-(c_id,c_author_id,c_post_id,c_content,c_time)
+$ictodbsql = "INSERT INTO uComments
+(comment_id,commentAuthor_id,commentPost_id,commentValue,commentTime)
 VALUES
 (:c_id,:s_id,:get_post_id,:comment_content,:comment_time)
 ";

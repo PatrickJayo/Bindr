@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("../config/connect.php");
+include("../config/connection.php");
 $r_type = htmlspecialchars(htmlentities($_POST['type']));
 switch ($r_type) {
 	// ================================= post =================================

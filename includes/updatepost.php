@@ -1,5 +1,5 @@
 <?php
-include("../config/connect.php");
+include("../config/connection.php");
 // ================= recive data from ajax data ======================================
 $posts_id = htmlspecialchars($_POST['pid']);
 $edit_post_var = trim(htmlspecialchars($_POST['pc']));

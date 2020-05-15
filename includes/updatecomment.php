@@ -1,14 +1,14 @@
 <?php
 session_start();
-include("../config/connect.php");
-include("time_function.php");
+include("../config/connection.php");
+include("currentTime.php");
 $comment_id = htmlentities($_POST['cid'], ENT_QUOTES);
 $edit_commant_var = htmlentities($_POST['cContent'], ENT_QUOTES);
 $check_path_var = htmlentities($_POST['cp'], ENT_QUOTES);
 $timeEdited = time();
 $edited = "1";
 
-$commentEdit_sql = "UPDATE comments SET c_content= :edit_commant_var , c_edited= :edited , c_time_edited= :timeEdited WHERE c_id= :comment_id";
+$commentEdit_sql = "UPDATE uComments SET commentValue= :edit_commant_var , commentEdits= :edited , editCommentTime= :timeEdited WHERE comment_id= :comment_id";
 $commentEdit = $conn->prepare($commentEdit_sql);
 $commentEdit->bindParam(':edit_commant_var',$edit_commant_var,PDO::PARAM_STR);
 $commentEdit->bindParam(':edited',$edited,PDO::PARAM_INT);

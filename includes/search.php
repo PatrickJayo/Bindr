@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('../config/connect.php');
+include('../config/connection.php');
 if($_POST){
 $q = htmlentities($_POST['search_user'], ENT_QUOTES);
 $directoryPath = htmlentities($_POST['directoryPath'], ENT_QUOTES);

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "../config/connect.php";
+include "../config/connection.php";
 $post_id = rand(0,9999999)+time();
 $p_author_id = $_SESSION['id'];
 $p_author = $_SESSION['Fullname'];
@@ -117,12 +117,12 @@ $insert_post_toDB->bindParam(':p_title', $p_title,PDO::PARAM_STR);
 $insert_post_toDB->bindParam(':p_privacy', $p_privacy,PDO::PARAM_STR);
 $insert_post_toDB->execute();
 }
-include("fetch_users_info.php");
-include ("time_function.php");
-include ("num_k_m_count.php");
+include("fetchUserInfo.php");
+include("currentTime.php");
+include("countNum.php");
 $vpsql = "SELECT * FROM wpost WHERE post_id = :post_id";
 $view_posts = $conn->prepare($vpsql);
 $view_posts->bindParam(':post_id', $post_id, PDO::PARAM_INT);
 $view_posts->execute();
-include "fetch_posts.php";
+include "fetchPosts.php";
 ?>

@@ -1,7 +1,7 @@
 <?php
 session_start();
-include('../config/connect.php');
-include ("num_k_m_count.php");
+include('../config/connection.php');
+include("countNum.php");
 $getTriendsPagesSql = "SELECT * FROM signup ORDER BY followers DESC LIMIT 6";
 $getTriendsPages = $conn->prepare($getTriendsPagesSql);
 $getTriendsPages->execute();

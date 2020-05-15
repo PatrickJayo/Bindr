@@ -1,6 +1,6 @@
 <?php
 $pid = $get_post_id;
-$show_comments_sql = "SELECT * FROM comments WHERE c_post_id=:pid ORDER BY c_time";
+$show_comments_sql = "SELECT * FROM uComments WHERE commentPost_id=:pid ORDER BY commentTime";
 $show_comments = $conn->prepare($show_comments_sql);
 $show_comments->bindParam(':pid',$pid,PDO::PARAM_INT);
 $show_comments->execute();

@@ -2,11 +2,11 @@
 error_reporting(E_ALL ^ E_NOTICE);
 session_start();
 $myId = $_SESSION['id'];
-include("../config/connect.php");
-include("../includes/fetch_users_info.php");
-include("../includes/time_function.php");
-include("../includes/country_name_function.php");
-include("../includes/num_k_m_count.php");
+include("../config/connection.php");
+include("../includes/fetchUserInfo.php");
+include("../includes/currentTime.php");
+include("../includes/countryNameFunction.php");
+include("../includes/countNum.php");
 if(!isset($_SESSION['Username'])){
     header("location: ../index");
 }
@@ -26,7 +26,7 @@ if (is_dir("imgs/")) {
     <meta charset="UTF-8">
     <meta name="description" content="<?php echo $row_bio; ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php include "../includes/head_imports_main.php";?>
+    <?php include "../includes/importHeadMain.php";?>
     </script>
     <style type="text/css">
         .user_info{
@@ -60,7 +60,7 @@ if (is_dir("imgs/")) {
 </head>
     <body onload="fetchPosts_DB('user')">
 <!--=============================[ NavBar ]========================================-->
-<?php include "../includes/navbar_main.php"; ?>
+<?php include "../includes/mainNav.php"; ?>
 
 <?php
 if (filter_var(htmlspecialchars($_GET['u']),FILTER_SANITIZE_STRING) == $row_username) {
@@ -69,7 +69,7 @@ if (filter_var(htmlspecialchars($_GET['u']),FILTER_SANITIZE_STRING) == $row_user
         <div class="profile_sec1_sec2" align="center">
         <div class="profile_cover">
                     <?php
-                    include "../includes/uploadcoverphoto.php";
+                    include "../includes/coverPhoto.php";
                     ?>
         <div id="coverImg" style="height: 100%; width: 100%; background: url(../imgs/user_covers/<?php echo $row_user_cover_photo; ?>) no-repeat center center; background-size: cover;">
             <?php
@@ -115,13 +115,13 @@ if (filter_var(htmlspecialchars($_GET['u']),FILTER_SANITIZE_STRING) == $row_user
                 $matches_num->execute();
                 $matches_num_int = $matches_num->rowCount();
                 //=====================================================================
-                $followers_sql = "SELECT id FROM follow WHERE uf_two=:row_id";
+                $followers_sql = "SELECT id FROM uFollow WHERE uf_two=:row_id";
                 $followers = $conn->prepare($followers_sql);
                 $followers->bindParam(':row_id',$row_id,PDO::PARAM_INT);
                 $followers->execute();
                 $followers_num = $followers->rowCount();
                 //=====================================================================
-                $following_sql = "SELECT id FROM follow WHERE uf_one=:row_id";
+                $following_sql = "SELECT id FROM uFollow WHERE uf_one=:row_id";
                 $following = $conn->prepare($following_sql);
                 $following->bindParam(':row_id',$row_id,PDO::PARAM_INT);
                 $following->execute();
@@ -163,7 +163,7 @@ if (filter_var(htmlspecialchars($_GET['u']),FILTER_SANITIZE_STRING) == $row_user
         <div class="profile_picture_img profile_ppicture" style="<?php echo $profile_pic_border_var;?>">
             <img src="<?php echo "../imgs/user_imgs/$row_user_photo";?>" alt="<?php echo $row_fullname;?>" id="profilePhotoPreview" />
             <?php
-            include "../includes/uploadprofilephoto.php";
+            include "../includes/profilePhoto.php";
             if($_SESSION['Username'] == $row_username){
                 echo "
                 <div class=\"change_user_photo\">
@@ -193,7 +193,7 @@ if (filter_var(htmlspecialchars($_GET['u']),FILTER_SANITIZE_STRING) == $row_user
             <div style="display: flex;">
             <?php
                if($row_id != $_SESSION['id']){
-                $csql = "SELECT id FROM follow WHERE uf_one=:s_id AND uf_two=:row_id";
+                $csql = "SELECT id FROM uFollow WHERE uf_one=:s_id AND uf_two=:row_id";
                 $c = $conn->prepare($csql);
                 $c->bindParam(':s_id',$s_id,PDO::PARAM_INT);
                 $c->bindParam(':row_id',$row_id,PDO::PARAM_INT);
@@ -346,7 +346,7 @@ if ($_SESSION['id'] == $row_id) {
 <p class="small_caps_paragraph" style="text-align:<?php echo lang('uProf_ffTitle_align'); ?>;"><?php echo $followers_paragraph; ?></p>
 <?php
 $s_id = $_SESSION['id'];
-$getfollowers_sql = "SELECT * FROM follow WHERE uf_two=:row_id";
+$getfollowers_sql = "SELECT * FROM uFollow WHERE uf_two=:row_id";
 $getfollowers = $conn->prepare($getfollowers_sql);
 $getfollowers->bindParam(':row_id',$row_id,PDO::PARAM_INT);
 $getfollowers->execute();
@@ -381,7 +381,7 @@ $fullname_followers = $fetch_followers['Fullname'];
 $username_followers = $fetch_followers['Username'];
 $userphoto_followers = $fetch_followers['Userphoto'];
 $verify_followers = $fetch_followers['verify'];
-$followBtn_sql = "SELECT id FROM follow WHERE uf_one=:s_id AND uf_two=:id_followers";
+$followBtn_sql = "SELECT id FROM uFollow WHERE uf_one=:s_id AND uf_two=:id_followers";
 $followBtn = $conn->prepare($followBtn_sql);
 $followBtn->bindParam(':s_id',$s_id,PDO::PARAM_INT);
 $followBtn->bindParam(':id_followers',$id_followers,PDO::PARAM_INT);
@@ -435,7 +435,7 @@ if ($_SESSION['id'] == $row_id) {
 <p class="small_caps_paragraph" style="text-align:<?php echo lang('uProf_ffTitle_align'); ?>;"><?php echo $following_paragraph; ?></p>
 <?php
 $s_id = $_SESSION['id'];
-$getfolloweing_sql = "SELECT * FROM follow WHERE uf_one=:row_id";
+$getfolloweing_sql = "SELECT * FROM uFollow WHERE uf_one=:row_id";
 $getfolloweing = $conn->prepare($getfolloweing_sql);
 $getfolloweing->bindParam(':row_id',$row_id,PDO::PARAM_INT);
 $getfolloweing->execute();
@@ -470,7 +470,7 @@ $fullname_followeing = $fetch_followeing['Fullname'];
 $username_followeing = $fetch_followeing['Username'];
 $userphoto_followeing = $fetch_followeing['Userphoto'];
 $verify_followeing = $fetch_followeing['verify'];
-$followBtn_sql = "SELECT id FROM follow WHERE uf_one=:s_id AND uf_two=:id_followeing";
+$followBtn_sql = "SELECT id FROM uFollow WHERE uf_one=:s_id AND uf_two=:id_followeing";
 $followBtn = $conn->prepare($followBtn_sql);
 $followBtn->bindParam(':s_id',$s_id,PDO::PARAM_INT);
 $followBtn->bindParam(':id_followeing',$id_followeing,PDO::PARAM_INT);
@@ -547,7 +547,7 @@ while ($getS_row = $getS->fetch(PDO::FETCH_ASSOC)) {
         $username_matches = $getuser_row['Username'];
         $userphoto_matches = $getuser_row['Userphoto'];
         $verify_matches = $getuser_row['verify'];
-        $followBtn_sql = "SELECT id FROM follow WHERE uf_one=:s_id AND uf_two=:id_matches";
+        $followBtn_sql = "SELECT id FROM uFollow WHERE uf_one=:s_id AND uf_two=:id_matches";
         $followBtn = $conn->prepare($followBtn_sql);
         $followBtn->bindParam(':s_id',$s_id,PDO::PARAM_INT);
         $followBtn->bindParam(':id_matches',$id_matches,PDO::PARAM_INT);
@@ -600,12 +600,12 @@ $getphotos->bindParam(':emptyImg',$emptyImg,PDO::PARAM_STR);
 $getphotos->execute();
 $getphotos_num = $getphotos->rowCount();
 if ($_SESSION['id'] == $row_id) {
-    include("../includes/w_post_form.php");
+    include("../includes/postForm.php");
 }
 ?>
 <?php
 if ($getphotos_num > 0) {
-    include("../includes/myphotosProfile.php");
+    include("../includes/userPhoto.php");
 }
 if ($posts_num_int < 1) {
 if ($_SESSION['id'] == $row_id) {

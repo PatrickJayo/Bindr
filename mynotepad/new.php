@@ -2,11 +2,11 @@
 error_reporting(E_ALL ^ E_NOTICE);
 session_start();
 
-include("../config/connect.php");
-include("..//includes/fetch_users_info.php");
-include("../includes/time_function.php");
-include("../includes/country_name_function.php");
-include("../includes/num_k_m_count.php");
+include("../config/connection.php");
+include("..//includes/fetchUserInfo.php");
+include("../includes/currentTime.php");
+include("../includes/countryNameFunction.php");
+include("../includes/countNum.php");
 if(!isset($_SESSION['Username'])){
     header("location: ../index");
 }
@@ -60,7 +60,7 @@ Error there was somthing wrong, Please try again.
     <title>Create new note | Bindr</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php include "../includes/head_imports_main.php";?>
+    <?php include "../includes/importHeadMain.php";?>
     <style type="text/css">
         .noteContent{
             min-height: 196px;
@@ -71,7 +71,7 @@ Error there was somthing wrong, Please try again.
 </head>
     <body onload="hide_notify()">
 <!--=============================[ NavBar ]========================================-->
-<?php include "../includes/navbar_main.php"; ?>
+<?php include "../includes/mainNav.php"; ?>
 <!--=============================[ Container ]=====================================-->
         <div align="center" style="margin-top: 65px;">
             <div class="white_div" style="text-align: <?php echo lang('textAlign'); ?>;">

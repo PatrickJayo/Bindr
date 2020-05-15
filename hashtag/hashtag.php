@@ -1,9 +1,9 @@
 <?php
 error_reporting(E_ALL ^ E_NOTICE);
 session_start();
-include("../config/connect.php");
-include ("../includes/time_function.php");
-include ("../includes/num_k_m_count.php");
+include("../config/connection.php");
+include("../includes/currentTime.php");
+include("../includes/countNum.php");
 if(!isset($_SESSION['Username'])){
     header("location: ../home");
 }
@@ -35,11 +35,11 @@ if (is_dir("imgs/")) {
     text-decoration: none;
     }
     </style>
-    <?php include "../includes/head_imports_main.php";?>
+    <?php include "../includes/importHeadMain.php";?>
 </head>
 <body onload="hide_notify()">
 <!--=============================[ NavBar ]========================================-->
-<?php include "../includes/navbar_main.php"; ?>
+<?php include "../includes/mainNav.php"; ?>
 <!--=============================[ Div_Container ]========================================-->
 <div class="main_container" align="center">
     <div style="display: inline-flex" align="center">
@@ -55,7 +55,7 @@ $view_posts->execute($params);
 $search_num = $view_posts->rowCount();
 if ($search_num > 0) {
 $isHashTagPage="yep";
-include "../includes/fetch_posts.php";
+include "../includes/fetchPosts.php";
 }else{
 ?>
 <div class="post">
